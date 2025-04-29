@@ -1,63 +1,74 @@
-# Core Blockchain Quickstart (Next.js + RainbowKit)
+# create-dapp-template
 
-A lightweight starter kit to build dApps on the **Core Blockchain**, using **Next.js** and **RainbowKit** for seamless wallet connectivity
+> A lightweight, developer-friendly starter kit for building decentralized applications on the Core Blockchain. Preconfigured with Hardhat, Next.js, and RainbowKit, it streamlines your development process and gets your dApp up and running in minutes!
 
-## ✨ Features
+[![npm version](https://img.shields.io/npm/v/create-dapp-template.svg)](https://www.npmjs.com/package/create-dapp-template)
+[![npm downloads](https://img.shields.io/npm/dt/create-dapp-template.svg)](https://www.npmjs.com/package/create-dapp-template)
 
-- Built with **Next.js 15**
-- **RainbowKit** for wallet connection
-- **wagmi** + **viem** for Core-compatible blockchain interaction
-- **React Toastify** for notifications
-- Pre-configured for **Core Mainnet** and **Core Testnet**
+## Features
 
-## 📦 Tech Stack
+- Built with Next.js 15
+- RainbowKit for wallet connection
+- wagmi + viem for blockchain interaction
+- React Toastify for notifications
+- Pre-configured for Core Mainnet and Core Testnet
 
-- [Next.js](https://nextjs.org/)
-- [RainbowKit](https://rainbowkit.com/)
-- [wagmi ](https://wagmi.sh/)
-- [viem 2.27.2](https://viem.sh/)
-- [Core Official Documentation](https://docs.coredao.org/)
-
-## 🚀 Getting Started
-
-### 1. Clone the repo
+## Quick Start
 
 ```bash
-git clone https://github.com/your-org/core-quickstart.git
-cd core-quickstart
+npx create-dapp-template@latest your-dapp-name
 ```
 
-### 2. Install dependencies
+## Usage
 
 ```bash
-npm install
+# Navigate to the folder
+cd your-dapp-name
+
+# Start development server
+npm run dev
 # or
-yarn install
+yarn dev
 ```
 
-### 3. Configure your project
+## Configuration
 
-Create a `.env.local` file in the root directory and add your project ID:
+Create a `.env.local` file in the root directory:
 
 ```bash
 NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id_here
+PRIVETKEY=your_private_key
 ```
+
+## Tech Stack
+
+- Next.js
+- RainbowKit
+- wagmi
+- viem
+- Hardhat
 
 ## Project Structure
 
 ```
-core-quickstart/
+create-dapp-template/
+├── artifacts/           # Hardhat compiled contract artifacts
+├── cache/              # Hardhat cache
+├── contracts/          # Smart contracts
+├── scripts/            #Hardhat deployment scripts
 ├── src/
 │   ├── pages/         # Next.js pages
 │   ├── styles/        # CSS styles
 │   └── wagmi.ts       # Wallet configuration
-├── public/            # Static assets
-└── package.json       # Project dependencies
+├── test/              # Test files
+├── package.json       # Project dependencies
+├── tsconfig.json      # TypeScript configuration
+└── hardhat.config.js  # Hardhat configuration
 ```
 
-## Wallet Setup with RainbowKit
+## Wallet Setup
 
-```ts
+```typescript
 // src/wagmi.ts
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { coreDao, coreTestnet1, coreTestnet2 } from "wagmi/chains";
@@ -68,29 +79,4 @@ export const config = getDefaultConfig({
   chains: [coreDao, coreTestnet1, coreTestnet2],
   ssr: true,
 });
-```
-
-## Development
-
-```bash
-npm run dev     # Start dev server
-npm run build   # Build for production
-npm run start   # Run production server
-```
-
-## Example: Home Page
-
-```tsx
-// pages/index.tsx
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import styles from "../styles/Home.module.css";
-
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <h1>🚀 Welcome to Core dApp Starter</h1>
-      <ConnectButton />
-    </div>
-  );
-}
 ```
