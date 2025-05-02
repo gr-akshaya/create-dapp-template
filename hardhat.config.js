@@ -2,6 +2,16 @@ require("@nomicfoundation/hardhat-toolbox");
 const dotenv = require("dotenv");
 dotenv.config();
 
+// Import the copy-abi task
+const { task } = require("hardhat/config");
+require("./task/copy-abi");
+
+// Override the compile task to run copy-abi after compilation
+task("compile", async (args, hre, runSuper) => {
+  await runSuper(args);
+  await hre.run("copy-abi");
+});
+
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {

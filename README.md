@@ -1,28 +1,69 @@
 # create-dapp-template
 
-> A lightweight, developer-friendly starter kit for building decentralized applications on the Core Blockchain. Preconfigured with Hardhat, Next.js, and RainbowKit, it streamlines your development process and gets your dApp up and running in minutes!
+> A lightweight, developer-friendly full-stack starter kit for building DApps on Core. Preconfigured with Hardhat, Next.js, and RainbowKit, it offers a seamless developer experience from testing and deploying smart contracts to frontend connectivity.
 
 [![npm version](https://img.shields.io/npm/v/create-dapp-template.svg)](https://www.npmjs.com/package/create-dapp-template)
 [![npm downloads](https://img.shields.io/npm/dt/create-dapp-template.svg)](https://www.npmjs.com/package/create-dapp-template)
 
-## Features
-
-- Built with Next.js 15
-- RainbowKit for wallet connection
-- wagmi + viem for blockchain interaction
-- React Toastify for notifications
-- Pre-configured for Core Mainnet and Core Testnet
-
-## Quick Start
+With just one simple command, get your dApp up and running on the Core network in minutes!
 
 ```bash
 npx create-dapp-template@latest your-dapp-name
 ```
 
+## Features
+
+- **Zero setup:** Preconfigured tooling so you can focus on building
+- **Built with Next.js 15:** Latest features from the most powerful React framework
+- **RainbowKit integration:** Seamless and customizable Web3 wallet connector
+- **Wagmi + Viem:** Robust and modern libraries for blockchain interactions
+- **React Toastify:** Elegant toast notifications with minimal setup
+- **Hardhat for Core:** Smart contract development preconfigured for Core Mainnet and Testnet
+
+## Prerequisites
+
+- **Node.js:** Version 20.x or higher is recommended. You can check your version with:
+  ```bash
+  node --version
+  ```
+  Download from [nodejs.org](https://nodejs.org/).
+
+## Installation
+
+### Using npm (Recommended)
+
+```bash
+npx create-dapp-template@latest your-dapp-name
+```
+
+### Using yarn
+
+```bash
+yarn create dapp-template your-dapp-name
+```
+
+### Clone and Run Locally
+
+You can also clone the repository and run it locally:
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/create-dapp-template.git
+
+# Navigate to the project directory
+cd create-dapp-template
+
+# Install dependencies
+npm install
+# or
+yarn install
+
+```
+
 ## Usage
 
 ```bash
-# Navigate to the folder
+# Navigate to the created dApp folder
 cd your-dapp-name
 
 # Start development server
@@ -55,8 +96,9 @@ create-dapp-template/
 ├── artifacts/           # Hardhat compiled contract artifacts
 ├── cache/              # Hardhat cache
 ├── contracts/          # Smart contracts
-├── scripts/            #Hardhat deployment scripts
+├── scripts/            # Hardhat deployment scripts
 ├── src/
+│   ├── abi/           # Contract ABIs for frontend usage
 │   ├── pages/         # Next.js pages
 │   ├── styles/        # CSS styles
 │   └── wagmi.ts       # Wallet configuration
@@ -65,6 +107,34 @@ create-dapp-template/
 ├── tsconfig.json      # TypeScript configuration
 └── hardhat.config.js  # Hardhat configuration
 ```
+
+## Writing Smart Contracts
+
+Write your smart contracts in the `contracts/` directory using Solidity. For example, to create a new contract, add a file like `MyContract.sol` inside the `contracts/` folder.
+
+## Compiling Contracts
+
+To compile your contracts and automatically copy the ABIs to the frontend, run:
+
+```bash
+npx hardhat compile
+```
+
+This will compile all contracts in the `contracts/` directory and place the ABIs in `src/abi/`.
+
+## Writing Deployment Scripts
+
+Deployment scripts should be placed in the `scripts/` directory. You can create scripts such as `deploy.js` to handle contract deployment.
+
+## Running Deployment Scripts
+
+To deploy your contracts, run the desired script with Hardhat. For example:
+
+```bash
+npx hardhat run scripts/deploy.js --network <network_name>
+```
+
+Replace `<network_name>` with the network you want to deploy to (e.g., `core_testnet2`)
 
 ## Wallet Setup
 
@@ -80,3 +150,51 @@ export const config = getDefaultConfig({
   ssr: true,
 });
 ```
+
+## Running the Frontend
+
+After setting up your contracts and installing dependencies, you can start the Next.js frontend development server with:
+
+```bash
+npm run dev
+```
+
+or
+
+```bash
+yarn dev
+```
+
+This will start the application at [http://localhost:3000](http://localhost:3000) by default.
+
+## ABI Usage
+
+After compiling your smart contracts with Hardhat, the ABI (Application Binary Interface) will be automatically copied to the `src/abi` directory by a custom Hardhat task.
+
+**To use the ABI in your frontend:**
+
+1. **Import the ABI in your component:**  
+   Use a default import to bring the ABI into your TypeScript/React component:
+
+   ```typescript
+   // Example usage in a React component
+   import YourContractABI from '../abi/YourContract.json';
+   import { useContractRead } from 'wagmi';
+
+   export function YourComponent() {
+     const { data } = useContractRead({
+       address: 'YOUR_CONTRACT_ADDRESS',
+       abi: YourContractABI,
+       functionName: 'yourFunction',
+     });
+
+     return (
+       // Your component JSX
+     );
+   }
+   ```
+
+   > **Note:** If you encounter a TypeScript error when importing the JSON file, ensure your `tsconfig.json` includes `"resolveJsonModule": true` under `compilerOptions`.
+
+2. **Keep ABIs up to date:**  
+   Whenever you update and recompile your contracts, the ABI in `src/abi` will be updated automatically.

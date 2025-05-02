@@ -1,6 +1,6 @@
 {
   "name": "create-dapp-template",
-  "version": "0.1.10",
+  "version": "0.1.14",
   "description": "Core starter template ",
   "bin": {
     "create-dapp-template": "./bin/cli.js"
