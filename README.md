@@ -13,12 +13,12 @@ npx create-dapp-template@latest your-dapp-name
 
 ## Features
 
-- **Zero setup:** Preconfigured tooling so you can focus on building
-- **Built with Next.js 15:** Latest features from the most powerful React framework
-- **RainbowKit integration:** Seamless and customizable Web3 wallet connector
-- **Wagmi + Viem:** Robust and modern libraries for blockchain interactions
-- **React Toastify:** Elegant toast notifications with minimal setup
-- **Hardhat for Core:** Smart contract development preconfigured for Core Mainnet and Testnet
+- **One-command setup** – Start building instantly
+- **Next.js 15** – Modern React-based frontend
+- **RainbowKit + Wagmi + Viem** – Wallet connection + blockchain hooks
+- **Hardhat** – Contract dev ready for Core Mainnet/Testnet
+- **Toastify** – Minimal notifications
+- **Built-in ABI sync** – Contracts auto-integrated with frontend
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ npx create-dapp-template@latest your-dapp-name
 yarn create dapp-template your-dapp-name
 ```
 
-### Clone and Run Locally
+### Clone manually:
 
 You can also clone the repository and run it locally:
 
@@ -81,14 +81,6 @@ NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id_here
 PRIVETKEY=your_private_key
 ```
 
-## Tech Stack
-
-- Next.js
-- RainbowKit
-- wagmi
-- viem
-- Hardhat
-
 ## Project Structure
 
 ```
@@ -98,7 +90,7 @@ create-dapp-template/
 ├── contracts/          # Smart contracts
 ├── scripts/            # Hardhat deployment scripts
 ├── src/
-│   ├── abi/           # Contract ABIs for frontend usage
+│   ├── abi/           # Auto-synced ABIsfor frontend usage
 │   ├── pages/         # Next.js pages
 │   ├── styles/        # CSS styles
 │   └── wagmi.ts       # Wallet configuration
@@ -108,27 +100,31 @@ create-dapp-template/
 └── hardhat.config.js  # Hardhat configuration
 ```
 
-## Writing Smart Contracts
+## Compile Contracts
 
-Write your smart contracts in the `contracts/` directory using Solidity. For example, to create a new contract, add a file like `MyContract.sol` inside the `contracts/` folder.
+Place them in the `contracts/` folder
 
-## Compiling Contracts
-
-To compile your contracts and automatically copy the ABIs to the frontend, run:
+Example: Replace `Lock.sol` with your custom .sol file
 
 ```bash
 npx hardhat compile
 ```
 
-This will compile all contracts in the `contracts/` directory and place the ABIs in `src/abi/`.
+## Run Tests
 
-## Writing Deployment Scripts
+Place them in the `test/` folder
 
-Deployment scripts should be placed in the `scripts/` directory. You can create scripts such as `deploy.js` to handle contract deployment.
+Format: `<contract-name>.test.js`
 
-## Running Deployment Scripts
+```bash
+npx hardhat test
+```
 
-To deploy your contracts, run the desired script with Hardhat. For example:
+## Deploy Contracts
+
+Place your deployment scripts inside the `scripts/` directory (e.g., deploy.js).
+
+Ensure your wallet's private key is added to the .env file, and that the wallet has sufficient funds on the target network.
 
 ```bash
 npx hardhat run scripts/deploy.js --network <network_name>
